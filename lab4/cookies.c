@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -5,17 +6,11 @@
 #include <stdbool.h>
 #include <string.h>
 
-
-
 bool riddle() {
    const char* riddle = "In the dark I sing, though I’m not heard by all, I warn of a danger, a silent deadly call. In coal mines I dwell, where miners are near, if I fall, their lives could disappear.";
-
    char input[30];
-   char temp;
-
    int index = 0;
    int read_nr_b;
-
 
    printf("How many bytes do you want to write?\n");
    scanf("%d",&read_nr_b);
@@ -29,43 +24,41 @@ bool riddle() {
   
    if(strcmp(input, "canary") == 0) return true;
    return false;
-
 }
 
 void win() {
   char prize[1];
   printf("Use your reward for being the best riddle solver!");
   gets(prize);
-
 }
 
-
 int main(int argc, char *argv[]) {
+  // Disable buffering to fix python interactions
+  setvbuf(stdout, NULL, _IONBF, 0);
+  setvbuf(stdin, NULL, _IONBF, 0);
+  setvbuf(stderr, NULL, _IONBF, 0);
+
   pid_t p;
   bool solved = false;
   int (*reward)(const char *) = system;
 
   while( solved == false){
-
       if( (p = fork()) == 0){
-            solved = riddle();
+          solved = riddle();
           exit(solved ? 0 : 1);
       } else if (p<0){
           perror("Fork failed");
           exit(1);
       } else {
-              int status;
+          int status;
           wait(&status);
           if(WIFEXITED(status) && WEXITSTATUS(status) == 0){
-          solved = true;
+            solved = true;
           }
       }
   }
 
-
-  printf("Correct. Your reward is: %p", reward);
-  fflush(stdout);
-
+  printf("Correct. Your reward is: %p\n", reward);
   win();
   return 0;
 }
