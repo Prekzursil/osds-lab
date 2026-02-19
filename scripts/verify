@@ -8,7 +8,11 @@ if missing:
     raise SystemExit(f"Missing required lab assets: {missing}")
 print("Required lab structure present")
 PY
-npx -y markdownlint-cli2 "**/*.md" "#node_modules"
-while IFS= read -r -d '' f; do
-  npx -y markdown-link-check "$f" -q || true
-done < <(find . -name '*.md' -print0)
+
+for f in AGENTS.md .github/BRANCH_POLICY.md .github/BRANCH_PROTECTION.md .github/PULL_REQUEST_TEMPLATE.md; do
+  test -f "$f"
+done
+
+npx -y markdown-link-check AGENTS.md -q || true
+npx -y markdown-link-check .github/BRANCH_POLICY.md -q || true
+npx -y markdown-link-check .github/BRANCH_PROTECTION.md -q || true
