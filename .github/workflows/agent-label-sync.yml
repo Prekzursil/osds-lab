@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - '.github/workflows/agent-label-sync.yml'
+      - '.github/workflows/*.yml'
 
 permissions:
   contents: read

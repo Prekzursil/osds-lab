@@ -25,3 +25,4 @@
 - [ ] Change is minimal and task-focused
 - [ ] No unrelated refactors included
 - [ ] No secrets or private tokens added
+- [ ] `bash scripts/verify` output attached in Evidence section
