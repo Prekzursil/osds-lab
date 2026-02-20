@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+python3 - <<'PY'
+from pathlib import Path
+required = ["lab1", "lab2", "lab3", "lab4", "lab5", "lab6", "lab7", "README.md"]
+missing = [p for p in required if not Path(p).exists()]
+if missing:
+    raise SystemExit(f"Missing required lab assets: {missing}")
+print("Required lab structure present")
+PY
+
+for f in AGENTS.md .github/BRANCH_POLICY.md .github/BRANCH_PROTECTION.md .github/PULL_REQUEST_TEMPLATE.md; do
+  test -f "$f"
+done
+
+python3 - <<'PY'
+from pathlib import Path
+import re
+
+files = [
+    Path('AGENTS.md'),
+    Path('.github/BRANCH_POLICY.md'),
+    Path('.github/BRANCH_PROTECTION.md'),
+    Path('.github/PULL_REQUEST_TEMPLATE.md'),
+]
+
+link_re = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
+errors = []
+
+for md in files:
+    text = md.read_text(encoding='utf-8')
+    for target in link_re.findall(text):
+        target = target.strip()
+        if not target or target.startswith('#'):
+            continue
+        if re.match(r'^[a-zA-Z][a-zA-Z0-9+.-]*:', target):
+            # Skip network and mailto links to keep verify deterministic/offline.
+            continue
+        path_only = target.split('#', 1)[0]
+        resolved = (md.parent / path_only).resolve()
+        if not resolved.exists():
+            errors.append(f"{md}: missing linked path '{target}'")
+
+if errors:
+    raise SystemExit("\n".join(errors))
+
+print("Markdown local-link checks passed")
+PY
