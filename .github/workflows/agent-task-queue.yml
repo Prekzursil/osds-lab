@@ -48,6 +48,20 @@ jobs:
 
             if (hadInProgress && existingContract) {
               core.info("Issue already in-progress with contract; idempotency guard triggered – skipping.");
+              if (hadReady) {
+                try {
+                  await github.rest.issues.removeLabel({
+                    owner,
+                    repo,
+                    issue_number,
+                    name: "agent:ready",
+                  });
+                } catch (error) {
+                  if (error.status !== 404) {
+                    core.error(`Idempotency guard: failed to remove agent:ready – ${error.message}`);
+                  }
+                }
+              }
               return;
             }
 
