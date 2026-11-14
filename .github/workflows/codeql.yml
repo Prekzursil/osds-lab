@@ -54,8 +54,12 @@ jobs:
             [ -e "$f" ] || continue
             obj="/tmp/osds-obj/$(echo "$f" | tr / _).o"
             if ! gcc -c -w -Wno-implicit-function-declaration -Wno-implicit-int -Wno-int-conversion -Wno-incompatible-pointer-types -fno-stack-protector -g "$f" -o "$obj"; then
-              echo "ERROR: failed to compile $f" >&2
-              fails=$((fails + 1))
+              # lab3/lab4 targets that their own Makefiles build with
+              # -mgeneral-regs-only (no_caller_saved_registers attribute)
+              if ! gcc -c -w -Wno-implicit-function-declaration -Wno-implicit-int -Wno-int-conversion -Wno-incompatible-pointer-types -mgeneral-regs-only -fno-stack-protector -g "$f" -o "$obj"; then
+                echo "ERROR: failed to compile $f" >&2
+                fails=$((fails + 1))
+              fi
             fi
           done
           for f in lab*/*.cpp; do
