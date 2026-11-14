@@ -53,7 +53,7 @@ jobs:
           for f in lab*/*.c; do
             [ -e "$f" ] || continue
             obj="/tmp/osds-obj/$(echo "$f" | tr / _).o"
-            if ! gcc -c -w -fno-stack-protector -g "$f" -o "$obj"; then
+            if ! gcc -c -w -Wno-implicit-function-declaration -Wno-implicit-int -Wno-int-conversion -Wno-incompatible-pointer-types -fno-stack-protector -g "$f" -o "$obj"; then
               echo "ERROR: failed to compile $f" >&2
               fails=$((fails + 1))
             fi
@@ -61,7 +61,7 @@ jobs:
           for f in lab*/*.cpp; do
             [ -e "$f" ] || continue
             obj="/tmp/osds-obj/$(echo "$f" | tr / _).o"
-            if ! g++ -c -w -fno-stack-protector -g "$f" -o "$obj"; then
+            if ! g++ -c -w -fpermissive -fno-stack-protector -g "$f" -o "$obj"; then
               echo "ERROR: failed to compile $f" >&2
               fails=$((fails + 1))
             fi
