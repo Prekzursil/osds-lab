@@ -13,7 +13,7 @@ bool riddle() {
    int read_nr_b;
 
    printf("How many bytes do you want to write?\n");
-   scanf("%d",&read_nr_b);
+   if (scanf("%d", &read_nr_b) != 1) return false;
    getchar(); // Consume newline
 
    printf("%s. What am I?\n", riddle);

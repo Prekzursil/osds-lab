@@ -36,7 +36,7 @@ exe = './bin/nightmares'
 # Load the binary as an ELF, so pwntools can inspect symbols and segments.
 try:
     elf = context.binary = ELF(exe, checksec=False)
-except:
+except Exception:
     print(f"[!] Binary {exe} not found. Run the setup script first!")
     sys.exit(1)
 
@@ -113,7 +113,7 @@ def main():
     try:
         addr_system = elf.plt['system']
         log.success(f"Found system@plt: {hex(addr_system)}")
-    except:
+    except Exception:
         log.error("system@plt not found! Is deep_sleep() in the binary?")
         sys.exit(1)
 
@@ -245,7 +245,7 @@ def main():
             p.interactive()
         else:
             log.error("No shell. Stack alignment might still be wrong.")
-    except:
+    except Exception:
         log.error("Process crashed or timed out.")
 
 

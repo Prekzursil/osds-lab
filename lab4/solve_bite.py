@@ -106,7 +106,7 @@ exe = './bin/bite'
 try:
     # Load ELF for symbol resolution (&backup_orders, etc.)
     elf = ELF(exe, checksec=False)
-except:
+except Exception:
     print(f"[!] Binary {exe} not found. Run 'make ex1' first.")  # ex1 Makefile builds 'bite'
     sys.exit(1)
 
@@ -163,7 +163,7 @@ def solve():
         try:
             p.clean(timeout=0.01)
         except Exception:
-            pass
+            log.debug("[cleanup] non-fatal exception ignored")
         log.info(f"Sending: {desc}")
         p.sendline(data)
 
@@ -293,7 +293,7 @@ def solve():
     try:
         p.clean()
     except Exception:
-        pass
+        log.debug("[cleanup] non-fatal exception ignored")
 
     p.sendline(b'id; ls')
     p.interactive()

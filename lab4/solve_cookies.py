@@ -37,7 +37,6 @@
 import sys
 import subprocess
 import re
-import time
 from pwn import *
 
 # === Configuration ===
@@ -78,7 +77,7 @@ def get_win_offset():
             print(f"[+] Found 'prize' at rbp-{hex(rbp_dist)}. Offset to canary: {offset}")
             return offset
     except Exception:
-        pass
+        log.debug("[cleanup] non-fatal exception ignored")
 
     print("[-] Static analysis failed. Defaulting to 8.")
     return 8
@@ -129,7 +128,7 @@ def solve():
                 offset = i
                 break
         except Exception:
-            pass
+            log.debug("[cleanup] non-fatal exception ignored")
 
     # Safety fallback in case detection fails for some reason.
     if offset == 0:

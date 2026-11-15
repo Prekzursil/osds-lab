@@ -127,7 +127,7 @@ def main():
             print(data.decode(errors='ignore'), end="")
             print("-----[ end program ]-----")
     except EOFError:
-        pass
+        log.debug("[cleanup] non-fatal exception ignored")
 
 
 if __name__ == "__main__":

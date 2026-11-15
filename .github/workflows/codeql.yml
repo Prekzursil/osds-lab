@@ -37,6 +37,9 @@ jobs:
         with:
           languages: ${{ matrix.language }}
           queries: security-extended,security-and-quality
+          config: |
+            paths-ignore:
+              - lab5/sdekit
 
       # Compile-only pass over the first-party lab exercises so the
       # CodeQL C/C++ extractor sees every translation unit. The lab

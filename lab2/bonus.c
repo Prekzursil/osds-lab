@@ -1,14 +1,14 @@
 #include <stdio.h>
 
-char *msg = "The quieter you become, the more you are able to hear.";
+char *secret_msg = "The quieter you become, the more you are able to hear.";
 
 int dothidden() {
-	msg = "True hackers see beyond what they are told... You won!";
+	secret_msg = "True hackers see beyond what they are told... You won!";
 	return 0;
 }
 
 int win() {
-	puts(msg);
+	puts(secret_msg);
 	return 0;
 }
 

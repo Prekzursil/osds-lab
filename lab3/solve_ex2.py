@@ -28,8 +28,6 @@
 #     tabs, newlines, etc. NUL bytes are okay.
 #
 
-import sys
-import time
 from pwn import *
 
 # === Configuration ===
@@ -61,7 +59,7 @@ def check_aslr():
                 log.warning("ASLR is DISABLED! Run: sudo sysctl -w kernel.randomize_va_space=2")
             else:
                 log.info("ASLR is enabled (Good).")
-    except:
+    except Exception:
         # If we cannot read the file (non-Linux, restricted), we just skip.
         pass
 
@@ -273,8 +271,8 @@ def main():
     # Optionally flush any remaining output so the shell prompt is clear.
     try:
         p.clean(timeout=0.2)
-    except:
-        pass
+    except Exception:
+        log.debug("[cleanup] non-fatal exception ignored")
 
     log.success("Payload sent. Checking for shell...")
 

@@ -45,7 +45,7 @@ sandwich_t *order_sandwich() {
 	while (1) {
 		puts("< How many ingredients would you like in your sandwich?");
 		printf("You can have at most %d.\n> ", MAX_INGREDIENTS);
-		scanf("%u", &ingredient_num);
+		if (scanf("%u", &ingredient_num) != 1) continue;
 		if (ingredient_num > MAX_INGREDIENTS) {
 			printf("< That's more than %d!\n", MAX_INGREDIENTS);
 			continue;
@@ -61,9 +61,9 @@ sandwich_t *order_sandwich() {
 	for (int i = 0; i <= ingredient_num; i++) {
 		while (1) {
 			printf("[ingredient no. %u/%u] > ", i, ingredient_num);
-			scanf("%u", &ingredient_idx);
+			if (scanf("%u", &ingredient_idx) != 1) continue;
 			ingredient_idx--;
-			if (ingredient_idx < 0 || ingredient_idx >= INGREDIENTS_COUNT) {
+			if (ingredient_idx >= INGREDIENTS_COUNT) {
 				puts("< That's not a valid ingredient! Try again.");
 				continue;
 			}

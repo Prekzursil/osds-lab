@@ -28,7 +28,6 @@
 # The “weird” function power() was compiled with no_caller_saved_registers,
 # so the compiler generously produced lots of POP gadgets, including pop rdi.
 
-import sys
 from pwn import *
 
 # === Configuration ===
