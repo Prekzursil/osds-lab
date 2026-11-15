@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <fcntl.h>
 #include <stdlib.h>
 #include <malloc.h>
 #include <string.h>
@@ -98,7 +97,7 @@ void notes_save() {
 	system("mkdir /tmp/dothidden_notes");
 	char filepath[512];
 	sprintf(filepath, "/tmp/dothidden_notes/%s", CONFIG->save_filename);
-	FILE *f = fdopen(open(filepath, O_WRONLY | O_CREAT | O_TRUNC, 0600), "w");
+	FILE *f = fopen(filepath, "w");
 	for (int i = 0; i < MAX_COUNT; i++) {
 		if (NOTES[i] == NULL) continue;
 		fputs(NOTES[i]->title, f);
