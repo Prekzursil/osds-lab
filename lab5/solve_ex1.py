@@ -53,8 +53,8 @@ def exploit():
             # Clean buffer
             try:
                 p.clean(timeout=0.1)
-            except:
-                pass
+            except Exception:
+                log.debug("[cleanup] non-fatal exception ignored")
 
             # Attempt to run a command
             p.sendline(b"echo PWN_SUCCESS")

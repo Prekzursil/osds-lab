@@ -26,7 +26,6 @@ and thus get a shell.
 import sys
 import os
 import subprocess
-import time
 from pwn import *
 
 # =============================================================================
@@ -147,7 +146,7 @@ def solve():
                             data = p.recv(timeout=1.0)
                             print(data.decode(errors='ignore'))
                         except Exception:
-                            pass
+                            log.debug("[cleanup] non-fatal exception ignored")
 
                         # Drop into interactive mode so we can use the shell manually.
                         p.interactive()

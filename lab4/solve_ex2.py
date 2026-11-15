@@ -63,7 +63,7 @@ exe = './bin/ex2'
 try:
     # Load the binary so pwntools can access symbols, GOT, PLT, segments, etc.
     elf = context.binary = ELF(exe, checksec=False)
-except:
+except Exception:
     print(f"[!] Binary {exe} not found. Run 'make ex2' first.")
     sys.exit(1)
 

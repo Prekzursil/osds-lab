@@ -3,15 +3,15 @@
 #include <unistd.h>
 
 const char find[] = "/bin/find";
-const char pwd[] = "/bin/pwd";
-const char ls[] = "/bin/ls";
+const char pwd_path[] = "/bin/pwd";
+const char ls_path[] = "/bin/ls";
 
 void menu() {
 	puts("1. ls\n2. pwd\n3. find\n");
 }
 
 int main() {
-	char *execs[] = {ls, pwd, find};
+	char *execs[] = {ls_path, pwd_path, find};
 	int choice;
 	menu();
 	scanf("%d", &choice);

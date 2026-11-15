@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <fcntl.h>
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
@@ -22,7 +23,7 @@ void copy_file(const char *src, const char *dest) {
         exit(EXIT_FAILURE);
     }
 
-    FILE *dest_file = fopen(dest, "wb");
+    FILE *dest_file = fdopen(open(dest, O_WRONLY | O_CREAT | O_TRUNC, 0600), "wb");
     if (!dest_file) {
         fclose(source_file);
         perror("Failed to open destination file");
@@ -85,7 +86,7 @@ int main() {
 
     fclose(f);
 
-    int result = system(filename);
+    system(filename);
 
     return 0;
 }

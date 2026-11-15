@@ -57,7 +57,7 @@ def main():
         if data:
             print(data.decode(errors="ignore"), end="")
     except EOFError:
-        pass
+        log.debug("[cleanup] non-fatal exception ignored")
 
 
 if __name__ == "__main__":

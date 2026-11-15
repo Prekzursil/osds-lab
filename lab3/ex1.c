@@ -16,7 +16,6 @@ booking_t bookings[] = {
 };
 
 int is_booked(char *airline_name, char *name) {
-	booking_t booking_details = {airline_name, name};
 	int n = sizeof(bookings) / sizeof(booking_t);
 	int i, j = 0;
 	for (i = 0; i < n; i++) {

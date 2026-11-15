@@ -31,7 +31,6 @@
 from pwn import *
 import subprocess
 import re
-import struct
 
 # Tell pwntools (and asm()) that we are on 64-bit Linux.
 context.update(arch='amd64', os='linux')

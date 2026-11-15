@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
-import sys
 import subprocess
 import re
-import time
 from pwn import *
 
 # === Configuration ===
@@ -154,8 +152,8 @@ def main():
     # We perform a small clean to remove any leftover buffer text.
     try:
         p.clean(timeout=0.2)
-    except:
-        pass
+    except Exception:
+        log.debug("[cleanup] non-fatal exception ignored")
 
     log.success("Enjoy your shell! (Type 'ls', 'id', etc.)")
     
